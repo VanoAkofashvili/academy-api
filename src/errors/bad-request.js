@@ -6,9 +6,11 @@ class BadRequestError extends CustomError {
   constructor(message) {
     super(message);
     Object.setPrototypeOf(this, BadRequestError.prototype);
+    this.message = message;
   }
 
   serializeErrors() {
+    console.log(this);
     return [{ message: this.message }];
   }
 }

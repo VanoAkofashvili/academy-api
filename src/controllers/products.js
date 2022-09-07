@@ -1,20 +1,28 @@
-const faker = require("@faker-js/faker");
-const { transformSuccess } = require("../../utils");
+const { transformSuccess } = require("../utils");
+const {
+  data: { all },
+} = require("../database/products-list");
+const { BadRequestError } = require("../errors");
 
 async function getAll(req, res) {
-  const products = new Array(20).fill(null).map((_) => {
-    return {
-      name: faker.faker.commerce.productName(),
-      price: faker.faker.commerce.price(),
-      id: faker.faker.database.mongodbObjectId(),
-    };
-  });
+  const products = all;
 
   res.status(200).send(transformSuccess(products));
 }
 
-async function getOne(req, res) {}
+async function getOne(req, res) {
+  const { id } = req.params;
+
+  const product = all.find((product) => product.id === id);
+
+  if (product) {
+    return res.status(200).send(transformSuccess(product));
+  }
+
+  throw new BadRequestError("Product not found");
+}
 
 module.exports = {
   getAll,
+  getOne,
 };
