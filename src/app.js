@@ -3,8 +3,10 @@ const { json } = require("body-parser");
 const cors = require("cors");
 require("express-async-errors");
 const morgan = require("morgan");
+const { errorHandler } = require("./middleware/error-handler");
+const { NotFoundError } = require("./errors");
 
-function start() {
+module.exports = function app() {
   const app = express();
   app.use(cors());
   app.use(json());
@@ -14,8 +16,11 @@ function start() {
   }
 
   app.all("*", async (req, res) => {
-    throw new Error("");
+    console.log("movida");
+    throw new NotFoundError();
   });
-}
 
-start();
+  app.use(errorHandler);
+
+  return app;
+};
