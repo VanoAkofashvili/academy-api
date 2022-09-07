@@ -5,6 +5,7 @@ require("express-async-errors");
 const morgan = require("morgan");
 const { errorHandler } = require("./middleware/error-handler");
 const { NotFoundError } = require("./errors");
+const productsRouter = require("./routes/products");
 
 module.exports = function app() {
   const app = express();
@@ -14,6 +15,8 @@ module.exports = function app() {
   if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
   }
+
+  app.use("/api/products", productsRouter);
 
   app.all("*", async (req, res) => {
     console.log("movida");
