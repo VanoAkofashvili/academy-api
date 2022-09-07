@@ -14,7 +14,6 @@ module.exports = function app() {
   app.use(cors());
   app.use(json());
 
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
   }
