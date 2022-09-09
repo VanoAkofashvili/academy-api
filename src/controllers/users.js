@@ -1,29 +1,29 @@
-const { transformSuccess } = require('../utils');
-const { faker } = require('@faker-js/faker');
-const jwt = require('jsonwebtoken');
+const { transformSuccess } = require("../utils");
+const { faker } = require("@faker-js/faker");
+const jwt = require("jsonwebtoken");
+const { ServerError } = require("../errors/server-error");
 
 const userId = faker.database.mongodbObjectId();
-const email = 'test@test.com';
+const email = "test@test.com";
 
 async function getUser(req, res) {
   try {
     const user = {
       id: userId,
-      firstName: 'Vaniko',
-      lastName: 'Akopashvili',
+      firstName: "Vaniko",
+      lastName: "Akopashvili",
       email,
       token: jwt.sign(
         {
           id: userId,
-          email,
         },
-        'secret_key'
+        "secret_key"
       ),
     };
+    res.status(200).send(transformSuccess(user));
   } catch (err) {
-    console.log(err);
+    throw new ServerError();
   }
-  res.status(200).send(transformSuccess(user));
 }
 
 module.exports = {
