@@ -22,7 +22,18 @@ async function getOne(req, res) {
   throw new BadRequestError("Product not found");
 }
 
+async function search(req, res) {
+  const { query } = req.body;
+
+  const found = all.filter(
+    (product) => product.title.toLowerCase().indexOf(query) >= 0
+  );
+
+  res.status(200).send(transformSuccess(found || []));
+}
+
 module.exports = {
   getAll,
   getOne,
+  search,
 };
