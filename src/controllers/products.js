@@ -5,7 +5,13 @@ const {
 const { BadRequestError } = require("../errors");
 
 async function getAll(req, res) {
-  const products = all;
+  const products = all.map(({ id, title, price, img, brand }) => ({
+    id,
+    title,
+    price,
+    img,
+    brand,
+  }));
 
   res.status(200).send(transformSuccess(products));
 }
