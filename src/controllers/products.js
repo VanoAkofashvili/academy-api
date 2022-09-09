@@ -32,8 +32,8 @@ async function getOne(req, res) {
 async function search(req, res) {
   const { query } = req.body;
 
-  const found = all.filter(
-    (product) => product.title.toLowerCase().indexOf(query) >= 0
+  const found = all.filter((product) =>
+    product.title.toLowerCase().includes(query.toLowerCase())
   );
 
   res.status(200).send(transformSuccess(found || []));
