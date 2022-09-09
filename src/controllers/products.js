@@ -1,6 +1,7 @@
 const { transformSuccess } = require("../utils");
 const {
   data: { all },
+  withCategories,
 } = require("../database/products-list");
 const { BadRequestError } = require("../errors");
 
@@ -38,8 +39,19 @@ async function search(req, res) {
   res.status(200).send(transformSuccess(found || []));
 }
 
+async function getByCategory(req, res) {
+  const { id } = req.params;
+  const products = withCategories[id];
+  if (!(id && products)) {
+    throw new BadRequestError("Invalid category id");
+  }
+
+  res.status(200).send(transformSuccess(products));
+}
+
 module.exports = {
   getAll,
   getOne,
   search,
+  getByCategory,
 };

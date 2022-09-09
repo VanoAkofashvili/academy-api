@@ -1,7 +1,6 @@
 const { CustomError, BadRequestError } = require("../errors");
 
 function errorHandler(err, req, res, next) {
-  console.log("movida", err.message);
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send({
       errors: err.serializeErrors(),

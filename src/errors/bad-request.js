@@ -10,7 +10,6 @@ class BadRequestError extends CustomError {
   }
 
   serializeErrors() {
-    console.log(this);
     return [{ message: this.message }];
   }
 }

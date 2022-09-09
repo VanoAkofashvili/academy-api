@@ -1651,4 +1651,11 @@ module.exports = {
     { id: 4, title: "ყურსასმენები" },
     { id: 5, title: "კამერები" },
   ],
+  withCategories: {
+    1: phonesList,
+    2: tvList,
+    3: laptopsList,
+    4: headphonesList,
+    5: camerasList,
+  },
 };
